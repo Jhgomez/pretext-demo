@@ -12,11 +12,41 @@ configurations then the key-pair would be created inside the directory we execut
 then we would add the private key to the ssh-agent and then copy and paste the public key in my git-hub registered ssh keys, that would 
 be all, however as a best practice we need to be aware that there could be more than one server we want to connect to via ssh protocol,
 if we don't add further configuations we would not be able to register several git-hub accounts in the same computer this would be because 
-they all communicate to the same host "github.com", how would the agent know you want to push/pull/fetch from an specific account, 
-mostlikely it would just perform the commands on the latest or first repository added/registered in the ssh-agent, that is why we should 
-know we can/should further configure ssh following the below steps, but first be aware the SSH is a protocol that uses the Server-Client 
+they all communicate to the same host "github.com", how would the agent know you want to push/pull/fetch from/to an specific account, 
+mostlikely it would just perform the commands on the latest or first repository added/registered to the ssh-agent, that is why we should 
+know we can/should further configure ssh following the below steps, but first be aware SSH is a protocol that uses the Server-Client 
 model, and in this guide we are talking about configuring the client only as git-hub is the server and the only thing we would need to 
-do on the server side is provide it the public key which git-hub knows how to use to enable communication via SSH
+do on the server side is provide it the public key which git-hub knows how to use to enable secure communication via SSH, this will avoid MITM attacks also
 	* create a `.ssh` directory with this command `mkdir ~/.ssh`, be aware that in linux you can find different directories from which 
 you can configure the client, the one I just mentioned is used to configure SSH explicitly by user(user-specific keys), however if we 
-would want to do the same configurations for the whole system(system-wide), we should use the directory `/etc/ssh`, these directories 
+would want to do the same configurations for the whole system(system-wide), we should use the directory `/etc/ssh`, in these directories
+we will store generated key-pair ssh keys(public and private keys are always generated as a pair) but also we can declare different hosts, 
+which means we can have different git-hub users, they all point to the same server but each connects using its own keys, in here we will 
+just configure user-specific keys and hosts, so we wil use the `.ssh` directory, be aware that it is not clear to me wheter that directory 
+is created automatically or at least FYI it seems that in Windows it is not created after executing some `ssh` commands as it seems to 
+be the case in Linux, so in case the directory is not created automatically you can create it manually with the command above
+	* You could do this step before the previous one, as mentioned in some operating systems the directory our keys should live in 
+may be created automatically, however if you do this step first and the directory is not created the keys files will be generated wherever 
+directory you call this command from, call `ssh-keygen -t ed25519 -C "<your_email@someHost.com"`, you may CD into the `.ssh` directory 
+before by executing `cd ~/.ssh`, some of this instructions are found in [git-hub's documentation](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+that shows how to generate an SSh key, pay close attention to the dialog in the terminal, if you didn't CD into the `.ssh` directory
+you may be able to enter the relative address like `../../.ssh/my_key_name`(this depends on where your current directory is) or you 
+can enter an absolute path like `~/.ssh/my_key_name` when creating your key
+	* Now we will configure the hosts(known hosts), execute `nano ~/.ssh/config` this will create the file since it should not exist
+usually I would just use the configurations below, however [here](https://www.man7.org/linux/man-pages/man5/ssh_config.5.html) you can find 
+all settings you can configure in the config file.
+	```
+	HOST juan.github.com
+	HostName github.com
+	PreferredAuthentications publickey
+  	IdentityFile ~/.ssh/titi-jit
+	AddKeysToAgent yes
+  	IdentitiesOnly yes
+	```
+	* create a directory where your project will live in, CD into the directory and start a local repo with `git init`
+	* create a remote repository in git-hub and follow its instructions
+	* on your local repo run these commands `git branch -M main` to create a branch, 
+`git remote add origin git@juan.github.com:Jhgomez/pretext-demo.git` see I changed the part `@github.com` to `@juan.github.com` this will
+link the local and remote repo
+	* Configure your user name and email with `git config --global user.email "urtiti@hotmail.com"` 
+and `git config --global user.name Juan Gomez` so your commits contain your information
