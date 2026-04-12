@@ -50,3 +50,18 @@ all settings you can configure in the config file.
 link the local and remote repo
 	* Configure your user name and email with `git config --global user.email "urtiti@hotmail.com"` 
 and `git config --global user.name Juan Gomez` so your commits contain your information
+6. Install NVM node version manager: as usual I will rather make the installation as "manual" as possible, that means I would rather get
+the executable of the tool that I need to install and then add an environment variable which points to the executable to be able to use 
+it from the terminal. So in this case I searched for "NVM for linux" and found [this repo](https://github.com/nvm-sh/nvm), from here I 
+followed the [Manual Install](https://github.com/nvm-sh/nvm) instructions.
+9. Once we have NVM installed we can have it install different versions of node for us, so run `nvm install 18.16.0` and 
+`nvm use 18.16.0` 
+
+# Create a `React` project
+Node is a Javascript runtime, every Node version is installed with a version of the `npm` and `npx` tools. The following instructions 
+were found in the [official docs](https://create-react-app.dev/docs/getting-started/)
+
+1. `npx create-react-app my-app`
+2. cd into the my-app directory `cd my-app`
+3. start the development server `npm start`
+
