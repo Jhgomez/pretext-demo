@@ -61,7 +61,10 @@ followed the [Manual Install](https://github.com/nvm-sh/nvm) instructions.
 Node is a Javascript runtime, every Node version is installed with a version of the `npm` and `npx` tools. The following instructions 
 were found in the [official docs](https://create-react-app.dev/docs/getting-started/)
 
-1. `npx create-react-app my-app`
+1. `npx create-react-app my-app` `npm init react-app my-app`
 2. cd into the my-app directory `cd my-app`
 3. start the development server `npm start`
 
+# Install VS COde
+1. DOwnload it from their website, extract files from the `.deb` file and run `tar -xvf data.tar.xz`
+2. 
