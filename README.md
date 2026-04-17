@@ -1,6 +1,6 @@
 # Environment Setup
 1. Create a VM, in WIndows 11 use Hyper-V instead of SandBox because the latter doesn't allow to use apps like git or a proxy
-2. I created an Ubuntu VM, so the first thing to do when is up is to update the versions of each of the packages in the packages list 
+2. I created an Ubuntu VM, Note that I had some configuration problem which I'm not sure what it was, however I end up using node version `20.20.21` because according to Node's official website it is the oldest long term support version avialable, however I'm not sure if the problem was node's version or Ubuntu's version which I end up using a newer version(22.04.5) which I donwloaded from their official website(iso file) and created the VM "manually" instead of using the "Quick Create" option. First thing to do when is up is to update the versions of each of the packages in the packages list 
 in the "Advance Package Tool"(`apt-get`), we also have the option to use a more user friendly package tool(`apt`), however the former is a 
 better choice for non interactive bash scripts, it is also said the it has more backwards compatiblity than the latter, however for 
 "regular" users might find `apt` more usefull/convenient. I will use the former, so do `apt-get update`
@@ -58,7 +58,7 @@ the executable of the tool that I need to install and then add an environment va
 it from the terminal. So in this case I searched for "NVM for linux" and found [this repo](https://github.com/nvm-sh/nvm), from here I 
 followed the [Manual Install]([https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#manual-install)) instructions.
 9. Once we have NVM installed we can have it install different versions of node for us, so run `nvm install 18.16.0` and 
-`nvm use 18.16.0` 
+`nvm use 18.16.0`. Note that I had some configuration problem which I'm not sure what it was, however I end up using node version `20.20.21` because according to Node's official website it is the oldest long term support version avialable, however I'm not sure if the problem was the node version or Ubuntu's version which I end up using a newer version(22.04.5) which I donwloaded from their official website(iso file)
 
 # Create a `React` project
 Node is a Javascript runtime, every Node version is installed with a version of the `npm` and `npx` tools. The following instructions 
