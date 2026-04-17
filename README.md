@@ -56,7 +56,7 @@ and `git config --global user.name Juan Gomez` so your commits contain your info
 8. Install NVM node version manager: as usual I will rather make the installation as "manual" as possible, that means I would rather get
 the executable of the tool that I need to install and then add an environment variable which points to the executable to be able to use 
 it from the terminal. So in this case I searched for "NVM for linux" and found [this repo](https://github.com/nvm-sh/nvm), from here I 
-followed the [Manual Install](https://github.com/nvm-sh/nvm) instructions.
+followed the [Manual Install]([https://github.com/nvm-sh/nvm](https://github.com/nvm-sh/nvm?tab=readme-ov-file#manual-install)) instructions.
 9. Once we have NVM installed we can have it install different versions of node for us, so run `nvm install 18.16.0` and 
 `nvm use 18.16.0` 
 
