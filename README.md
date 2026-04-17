@@ -50,7 +50,10 @@ all settings you can configure in the config file.
 link the local and remote repo
 	* Configure your user name and email with `git config --global user.email "urtiti@hotmail.com"` 
 and `git config --global user.name Juan Gomez` so your commits contain your information
-6. Install NVM node version manager: as usual I will rather make the installation as "manual" as possible, that means I would rather get
+6. Add Github to ssh known hosts using Github's public key fingerprints which is used to validate a connection to a remote server as stated
+   [here](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/githubs-ssh-key-fingerprints), do `nano ~/.ssh/known_hosts`
+   and copy/paste the value provided in the refenreced documentation
+8. Install NVM node version manager: as usual I will rather make the installation as "manual" as possible, that means I would rather get
 the executable of the tool that I need to install and then add an environment variable which points to the executable to be able to use 
 it from the terminal. So in this case I searched for "NVM for linux" and found [this repo](https://github.com/nvm-sh/nvm), from here I 
 followed the [Manual Install](https://github.com/nvm-sh/nvm) instructions.
