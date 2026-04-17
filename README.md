@@ -64,10 +64,14 @@ followed the [Manual Install]([https://github.com/nvm-sh/nvm](https://github.com
 Node is a Javascript runtime, every Node version is installed with a version of the `npm` and `npx` tools. The following instructions 
 were found in the [official docs](https://create-react-app.dev/docs/getting-started/)
 
-1. `npx create-react-app my-app` `npm init react-app my-app`
+1. `npx create-react-app my-app`
 2. cd into the my-app directory `cd my-app`
 3. start the development server `npm start`
 
-# Install VS COde
-1. DOwnload it from their website, extract files from the `.deb` file and run `tar -xvf data.tar.xz`
-2. 
+# Install VS Code
+1. Since I'm using Ubuntu I downloaded the `.deb` file from their official website
+2. The eassiest way to install it is following instructions in their official website which says I 
+should `cd` into the directory the file is located at from the terminal and run the command
+`sudo apt install ./<file_name>.deb`
+3. Now search vs code in the installed apps in the OS, install extensions for Javascript and maybe React
+4. 
