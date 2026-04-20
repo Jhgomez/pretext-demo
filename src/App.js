@@ -1,10 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
+import { prepareWithSegments, layoutNextLine } from '@chenglou/pretext';
 
 let LINE_HEIGHT = 20;
 
-let VID_G = 245,
+let VID_R = 245,
+VID_G = 245,
 VID_B = 200;
 
 const BOOK_TEXT = `Earlier this week`
@@ -58,15 +60,74 @@ function layoutTextGrid() {
 }
 
 // 4:18
-// function render() {
-//   let vPix = null;
-//   if(video.readyState >= 2) {
-//     videoCtx
-//   }
-// }
+function render() {
+  let vPix = null;
+  if(video.readyState >= 2) {
+    videoCtx.drawImage(video, 0, 0, cols, rows);
+    vPix = videoCtx.getImageData(0, 0, cols, rows).data;
+  }
 
+  ctx.fillStyle = "#08080a";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  // this line should say FONT but if using that value compilation fails
+  // TODO so I may need to add a font to this project to be able to reference it here
+  ctx.font = FontFace;
+  ctx.textBaseline = "top";
 
+  for (let row = 0; row < rows; row++) {
+    const y = row * LINE_HEIGHT;
+    for (let col = 0; col < cols; col++) {
+      const ch = charGrid[row * cols + col];
+      if (ch === " ") continue;
 
+      if (vPix) {
+        const idx = (row * cols + col) * 4;
+        const lum = 
+          (0.299 * vPix[idx] + 0.587 * vPix[idx + 1] + 0.114 * vPix[idx + 2]) / 
+          255;
+        
+        const THRESHOLD = 0.15;
+        if (lum < THRESHOLD) continue;
+        const t = (lum - THRESHOLD) / (1 - THRESHOLD);
+        const alpha = Math.pow(t, 0.6);
+        const r = Math.round(VID_R + (255 - VID_R) * t);
+        const g = Math.round(VID_G + (255 - VID_G) * t);
+        const b = Math.round(VID_B + (255 - VID_B) * t);
+        ctx.fillStyle = `rgba(${r},${g},${b},${alpha.toFixed(3)})`;
+      } else {
+        ctx.fillStyle = "08080a";
+      }
+
+      ctx.fillText(ch, col * cellW, y);
+    }
+  }
+
+  requestAnimationFrame(render);
+}
+
+function handleResize() {
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = window.innerWidth * dpr;
+  canvas.height = window.innerHeight * dpr;
+  canvas.style.width = window.innerWidth + "px";
+  canvas.style.height = window.innerHeight + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  layoutTextGrid();
+}
+
+window.addEventListener("resize", handleResize);
+
+document.addEventListener(
+  "click",
+  () => {
+    video
+      .play()
+      .then(() => {
+        videoPlaying = true;
+      })
+      .catch(() => {});
+  }
+)
 
 function App() {
   const [clicked, setClicked] = useState(false)
@@ -74,6 +135,8 @@ function App() {
   const handleClick = () => {
     setClicked(!clicked);
   }
+
+  render()
 
   return (
     <div className="App">
